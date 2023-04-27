@@ -16,13 +16,13 @@ const File = mongoose.model('File', fileSchema);
 
 router.post('/upload', upload.single('file'), async (req, res) => {
   const file = req.file; // the uploaded file
-  console.log(file)
   try {
     const data = await fs.readFile(file.path);
-
+    const { description } = req.body;
     const document = new File({
       filename: file.originalname,
-      data: data
+      data: data,
+      description
     });
 
     await document.save();
