@@ -1,12 +1,13 @@
 import React from 'react'
-import UploadImage from './UploadImage'
+import UploadForm from './UploadForm'
+
 
 
 const Home = () => {
   return (
     <div>
       <h1>This is home.</h1>
-      <UploadImage/>
+      <UploadForm/>
     </div>
   )
 }
