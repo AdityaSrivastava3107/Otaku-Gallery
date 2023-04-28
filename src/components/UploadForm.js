@@ -34,8 +34,8 @@ function UploadForm(props) {
     <div>
       <h3>Upload your Image</h3>
       <form onSubmit={handleSubmit}>
-        <input type="file" onChange={handleFileInput} />
-        <button type="submit">Upload</button>
+        <input type="file" className="file-input file-input-bordered w-full max-w-xs" onChange={handleFileInput} />
+        <button className="btn btn-outline btn-secondary" type="submit">Upload</button>
       </form>
       <p>{message}</p>
     </div>
