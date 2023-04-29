@@ -50,10 +50,7 @@ router.post('/createuser', [
 
 })
 //user login route
-router.post('/login', [
-  body('username', 'Enter valid username').exists(),
-  body('password', 'Password cannot be blank').exists()
-], async (req, res) => {
+router.post('/login', async (req, res) => {
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
     return res.status(400).json({ errors: errors.array() });
@@ -64,14 +61,14 @@ router.post('/login', [
   try {
     let user = await User.findOne({ username });
     if (!user) {
-      return res.status(400).json({ errors: "Login with correct credentials" });
+      return res.status(400).json({ errors: "Username not found" });
     }
     const passCompare = (password) => {
       const match = bcrypt.compare(password, user.password);
       return match;
     }
     if (!passCompare(password)) {
-      return res.status(400).json({ errors: "Login with correct credentials" });
+      return res.status(400).json({ errors: "Incorrect Password" });
     }
     const data = {
       user: {

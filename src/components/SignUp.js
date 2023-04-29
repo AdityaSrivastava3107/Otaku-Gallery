@@ -28,6 +28,9 @@ const SignUp = () => {
   return (
     <div>
        <>
+       <div className="container" style={{display: 'flex',alignItems: 'center',justifyContent: 'center',height: '10vh'}}>
+        <h1>Create Your Account!</h1>
+       </div>
         <div className="container" style={{display: 'flex',alignItems: 'center',justifyContent: 'center',height: '60vh'}}>
             <form className="form-control w-full max-w-xs" onSubmit={handleSubmit}>
             <label className="label">
@@ -35,7 +38,7 @@ const SignUp = () => {
                 </label>
                 <input type="text" value={name} onChange={(e) => setName(e.target.value)} placeholder="Type here" className="input input-bordered input-primary w-full max-w-xs" />
                 <label className="label">
-                    <span className="label-text">Email ID</span>
+                    <span className="label-text">Username</span>
                 </label>
                 <input type="email" value={username} onChange={(e) => setUsername(e.target.value)} placeholder="Type here" className="input input-bordered input-primary w-full max-w-xs" />
                 <label className="label">

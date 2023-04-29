@@ -1,28 +1,23 @@
 const express = require('express');
 const multer = require('multer');
-const mongoose = require('mongoose');
 const fs = require('fs').promises;
 const router = express.Router();
+const File = require('../models/Files')
+const upload = multer({ dest: 'uploads/' }); // specify the directory where uploaded files should be 
+const fetchuser = require('../middleware/fetchuser')
 
-const upload = multer({ dest: 'uploads/' }); // specify the directory where uploaded files should be stored
 
-
-const fileSchema = new mongoose.Schema({
-  filename: String,
-  data: Buffer
-});
-
-const File = mongoose.model('File', fileSchema);
-
-router.post('/upload', upload.single('file'), async (req, res) => {
+router.post('/upload', upload.single('file'), fetchuser, async (req, res) => {
   const file = req.file; // the uploaded file
   try {
     const data = await fs.readFile(file.path);
     const { description } = req.body;
+    console.log(req.user)
     const document = new File({
       filename: file.originalname,
       data: data,
-      description
+      description : description,
+      userId : req.user.id
     });
 
     await document.save();

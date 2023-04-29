@@ -10,6 +10,8 @@ import Profile from './components/Profile';
 import CreateProfile from './components/CreateProfile';
 import TopPosts from './components/TopPosts';
 import PrivateRoute from './components/PrivateRoute';
+import UploadForm from './components/UploadForm';
+//import Footer from './components/Footer';
 
 function App() {
   return (
@@ -23,6 +25,7 @@ function App() {
         <Route exact path='/home' element={<Home />} />
         <Route exact path='/shop' element={<Shop />} />
         <Route exact path='/blog' element={<Blog />} />
+        <Route exact path='/uploadform' element={<UploadForm/>} />
         </Route>
         <Route exact path='/login' element={<LoginPage />} />
         <Route exact path='/signup' element={<SignUp />} />

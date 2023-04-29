@@ -3,7 +3,7 @@ import axios from 'axios'
 import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 const LoginPage = () => {
-    const [email, setEmail] = useState('');
+    const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
 
     const navigate = useNavigate() 
@@ -11,7 +11,7 @@ const LoginPage = () => {
     const userLogin = (event) => {
         event.preventDefault();
 
-        axios.post('http://localhost:5000/api/authorize/login', { email, password })
+        axios.post('http://localhost:5000/api/authorize/login', { username, password })
             .then((response) => {
                 // Handle the response from the backend API
                 localStorage.setItem('auth-token', response.data.authtoken);
@@ -22,6 +22,10 @@ const LoginPage = () => {
                 console.error(error);
             });
     }
+
+    const navigateToSignUp = ()=>{
+        navigate('/signup');
+    }
     return (
         <>
         <div className="container" style={{display: 'flex',alignItems: 'center',justifyContent: 'center',height: '60vh'}}>
@@ -29,12 +33,14 @@ const LoginPage = () => {
                 <label className="label">
                     <span className="label-text">Username or Email</span>
                 </label>
-                <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="Type here" className="input input-bordered input-primary w-full max-w-xs" />
+                <input type="text" value={username} onChange={(e) => setUsername(e.target.value)} placeholder="Type here" className="input input-bordered input-primary w-full max-w-xs" />
                 <label className="label">
                     <span className="label-text">Password</span>
                 </label>
                 <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} placeholder="Type here" className="input input-bordered input-primary w-full max-w-xs" />
                 <button className="btn btn-outline btn-primary my-3" onClick={userLogin}>Login</button>
+                <span className="label-text">Don't have an Account?</span>
+                <button className="btn btn-outline btn-primary my-3" onClick={navigateToSignUp}>Sign Up Now!</button>
             </div>
             </div>
         </>
