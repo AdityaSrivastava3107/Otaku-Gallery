@@ -12,8 +12,8 @@ const Profile = () => {
 
   return (
     <>
-      <div className="container" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: '1rem' }}>
-        <h1 className="header font-bold" style={{fontSize:'25px',  display: 'flex', alignItems: 'center', justifyContent: 'center', height: '3rem', marginLeft:'90px'}}>Your Profile</h1>
+      <div className="container prose" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: '7vh', margin:'0 auto' }}>
+        <h1>Your Profile</h1>
       </div>
       <div className='grid-cols-4 grid'>
         <div >

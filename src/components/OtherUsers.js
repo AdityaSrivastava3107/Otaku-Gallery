@@ -4,7 +4,7 @@ import OnlineUsers from './OnlineUsers'
 const OtherUsers = () => {
     return (
         <>
-            <div className="h-1 carousel carousel-vertical rounded-box" style={{ height: '40rem' }}>
+            <div className="h-1 carousel carousel-vertical rounded-box h-20">
                 <div className="carousel-item h-full">
                    <OnlineUsers/>
                     </div>

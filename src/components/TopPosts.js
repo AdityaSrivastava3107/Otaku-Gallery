@@ -4,7 +4,7 @@ import Carousel from './Carousel'
 const TopPosts = () => {
   return (
     <>
-    <div className="container my-3" style={{display: 'flex',alignItems: 'center',justifyContent: 'center',height: '10vh', marginLeft:'80px'}}>
+    <div className="container prose" style={{display: 'flex',alignItems: 'center',justifyContent: 'center',height: '10vh',  margin:'0 auto'}}>
         <h1>Today's Top Arts!</h1>
     </div>
     <div className="container" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: '40rem', margin:'0 auto' }}>
