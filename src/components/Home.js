@@ -7,7 +7,7 @@ const Home = () => {
       <div className="container prose" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: '10vh', margin:'0 auto' }}>
         <h1>Your Feed</h1>
       </div>
-      <div className="container" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: '40rem', margin: '0 auto' }}>
+      <div className="container h-1" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: '40rem', margin: '0 auto' }}>
         <Carousel />
       </div>
     </>

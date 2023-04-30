@@ -10,6 +10,10 @@ const Profile = () => {
     navigate('/uploadform')
   }
 
+  const navigateToEditProfile=()=>{
+    navigate('/createprofile')
+  }
+
   return (
     <>
       <div className="container prose" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: '7vh', margin:'0 auto' }}>
@@ -32,7 +36,7 @@ const Profile = () => {
                 <div className="badge badge-primary" style={{ marginLeft: '10px' }}>Sketching</div>
               </div>
               <button className="btn btn-outline btn-primary" style={{ marginBottom: '10px' }} onClick={navigateToUploadForm}>Add Art</button>
-              <button className="btn btn-sm btn-outline btn-primary">Edit Profile</button>
+              <button className="btn btn-sm btn-outline btn-primary" onClick={navigateToEditProfile}>Edit Profile</button>
             </div>
           </div>
         </div>

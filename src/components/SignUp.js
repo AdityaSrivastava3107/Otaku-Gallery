@@ -29,10 +29,10 @@ const SignUp = () => {
   return (
     <div>
        <>
-       <div className="container" style={{display: 'flex',alignItems: 'center',justifyContent: 'center',height: '10vh'}}>
+       <div className="container prose" style={{display: 'flex',alignItems: 'center',justifyContent: 'center',height: '10vh', margin:'0 auto'}}>
         <h1>Create Your Account!</h1>
        </div>
-        <div className="container" style={{display: 'flex',alignItems: 'center',justifyContent: 'center',height: '60vh'}}>
+        <div className="container" style={{display: 'flex',alignItems: 'center',justifyContent: 'center',height: '50vh', margin : '0 auto'}}>
             <form className="form-control w-full max-w-xs" onSubmit={handleSubmit}>
             <label className="label">
                     <span className="label-text">Your Name?</span>

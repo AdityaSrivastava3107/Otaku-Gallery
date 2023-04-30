@@ -30,7 +30,10 @@ const LoginPage = () => {
 
     return (
         <>
-        <div className="container" style={{display: 'flex',alignItems: 'center',justifyContent: 'center',height: '60vh'}}>
+        <div className="container prose" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: '10vh', margin: '0 auto' }}>
+                <h1>Login To Your Account!</h1>
+            </div>
+        <div className="container" style={{display: 'flex',alignItems: 'center',justifyContent: 'center',height: '50vh', margin:'0 auto'}}>
             <div className="form-control w-full max-w-xs">
                 <label className="label">
                     <span className="label-text">Username or Email</span>
