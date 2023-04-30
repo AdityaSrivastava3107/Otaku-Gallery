@@ -11,14 +11,22 @@ import CreateProfile from './components/CreateProfile';
 import TopPosts from './components/TopPosts';
 import PrivateRoute from './components/PrivateRoute';
 import UploadForm from './components/UploadForm';
+import Alert from './components/Alert';
+import { useState } from 'react';
+import Logout from './components/Logout';
 //import Footer from './components/Footer';
 
 function App() {
+  const [alert, setAlert] = useState(null)
+  const showAlert=(message)=>{
+    setAlert({
+      message : message
+    })
+  }
   return (
     <>
       <Appbar />
-      <div className="container">  
-      </div>   
+      <Alert alert={alert}/>   
       <Routes>
         <Route exact path='/' element={<TopPosts/>}></Route>
         <Route element={<PrivateRoute/>}>
@@ -27,10 +35,11 @@ function App() {
         <Route exact path='/blog' element={<Blog />} />
         <Route exact path='/uploadform' element={<UploadForm/>} />
         </Route>
-        <Route exact path='/login' element={<LoginPage />} />
-        <Route exact path='/signup' element={<SignUp />} />
+        <Route exact path='/login' element={<LoginPage showAlert={showAlert}/>} />
+        <Route exact path='/signup' element={<SignUp showAlert={showAlert}/>} />
         <Route exact path='/profile' element={<Profile />} />
         <Route exact path='/createprofile' element={<CreateProfile/>} />
+        <Route exact path='/logout' element={<Logout/>} />
       </Routes>
     </>
   );

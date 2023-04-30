@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 function UploadForm(props) {
   const [selectedFile, setSelectedFile] = useState(null);
   const [message, setMessage] = useState('');
-
+  const navigate = useNavigate()
   async function uploadFile(file) {
     const formData = new FormData();
     formData.append('file', file);
@@ -33,7 +34,9 @@ function UploadForm(props) {
     await uploadFile(selectedFile);
   }
 
-  
+  const navToProfile=()=>{
+    navigate('/profile')
+  }
   
 
   return (
@@ -41,7 +44,7 @@ function UploadForm(props) {
       <h3 className='container font-bold' style={{marginBottom : '25px', marginLeft: '140px', fontSize : '20px'}}>Upload your Art</h3>
       <form onSubmit={handleSubmit}>
         <input type="file" className="file-input w-full max-w-xs" onChange={handleFileInput} />
-        <button className="btn btn-outline btn-secondary" type="submit" style={{marginLeft : '10px'}}>Upload</button>
+        <button className="btn btn-outline btn-secondary" type="submit" onClick={navToProfile} style={{marginLeft : '10px'}}>Upload</button>
       </form>
       <img src={file} alt="" />
       <p>{message}</p>

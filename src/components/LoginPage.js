@@ -8,7 +8,7 @@ const LoginPage = () => {
 
     const navigate = useNavigate() 
 
-    const userLogin = (event) => {
+    const userLogin = (event, props) => {
         event.preventDefault();
 
         axios.post('http://localhost:5000/api/authorize/login', { username, password })
@@ -16,6 +16,7 @@ const LoginPage = () => {
                 // Handle the response from the backend API
                 localStorage.setItem('auth-token', response.data.authtoken);
                 navigate('/');
+                props.showAlert('Logged in Successfully!')
             })
             .catch((error) => {
                 // Handle any errors that occur during the request
@@ -26,6 +27,7 @@ const LoginPage = () => {
     const navigateToSignUp = ()=>{
         navigate('/signup');
     }
+
     return (
         <>
         <div className="container" style={{display: 'flex',alignItems: 'center',justifyContent: 'center',height: '60vh'}}>

@@ -8,7 +8,7 @@ const SignUp = () => {
     const [password, setPassword] = useState('');
     const navigate= useNavigate();
 
-    function handleSubmit(event) {
+    function handleSubmit(event, props) {
         event.preventDefault();
         axios.post('http://localhost:5000/api/authorize/createuser', {
             name: name,
@@ -19,6 +19,7 @@ const SignUp = () => {
                 // Handle the response from the backend API
                 localStorage.setItem('auth-token', response.data.authtoken);
                 navigate('/createprofile');
+                props.showAlert('Account Created Successfully!')
             })
             .catch((error) => {
                 // Handle any errors that occur during the request
@@ -40,7 +41,7 @@ const SignUp = () => {
                 <label className="label">
                     <span className="label-text">Username</span>
                 </label>
-                <input type="email" value={username} onChange={(e) => setUsername(e.target.value)} placeholder="Type here" className="input input-bordered input-primary w-full max-w-xs" />
+                <input type="text" value={username} onChange={(e) => setUsername(e.target.value)} placeholder="Type here" className="input input-bordered input-primary w-full max-w-xs" />
                 <label className="label">
                     <span className="label-text">Password</span>
                 </label>

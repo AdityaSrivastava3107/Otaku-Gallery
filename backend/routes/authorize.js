@@ -96,4 +96,23 @@ router.post('/getuser', fetchuser, async (req, res) => {
     res.status(500).send("Internal Server Error");
   }
 })
+
+//user logout route
+router.post('/logout', fetchuser, async (req, res) => {
+  try {
+    // remove the token from the user's list of tokens
+    console.log(req.user.token)
+    req.user.tokens = req.user.tokens.filter((token) => {
+      return token.token !== req.token;
+    });
+
+    // save the updated user
+    await req.user.save();
+    res.status(200).send(null);
+  }  catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Server error.' });
+  }
+});
+
 module.exports = router
