@@ -4,7 +4,7 @@ const fetchuser = require('../middleware/fetchuser');
 const User = require('../models/Users');
 
 // route for updating user profile
-router.put('/profile', fetchuser, async (req, res) => {
+router.put('/updateprofile', fetchuser, async (req, res) => {
   try {
     const { name, bio } = req.body;
     if(!name)
@@ -17,7 +17,7 @@ router.put('/profile', fetchuser, async (req, res) => {
       { name, bio },
       { new: true }
     );
-
+    
     res.status(200).json({ message: 'Profile updated successfully.', data: user });
   } catch (error) {
     console.error(error);
@@ -33,8 +33,25 @@ router.get('/profile', fetchuser, async (req, res) => {
   
       res.status(200).json({ message: 'Profile fetched successfully.',  data: {
         displayName: user.displayName,
-        displayPicture: user.displayPicture,
+        displayBio : user.displayBio ,
       },});
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ message: 'Server error.' });
+    }
+  });
+
+  router.put('/displaypicture', fetchuser, async (req, res) => {
+    try {
+      const user = await User.findById(req.user.id);
+      if (!user) {
+        return res.status(404).json({ message: 'User not found.' });
+      }
+  
+      user.displayPicture = req.body.displayPicture;
+      await user.save();
+  
+      res.status(200).json({ message: 'User display picture updated successfully.' });
     } catch (error) {
       console.error(error);
       res.status(500).json({ message: 'Server error.' });

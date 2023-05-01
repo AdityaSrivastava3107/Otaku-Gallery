@@ -1,7 +1,33 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import Toast from './Toast'
+import Notifications from './Notifications'
+import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
+import AuthContext from '../context/authContext';
+import { useContext } from 'react';
+
 const Appbar = () => {
+    const { setIsLoggedIn } = useContext(AuthContext);
+    const navigate = useNavigate();
+
+    const handleLogout = async () => {
+        console.log('a')
+        try {
+            const res = await axios.post('http://localhost:5000/api/authorize/logout', {
+                headers: {
+                    'auth-token': `${localStorage.getItem('auth-token')}`
+                }
+            });
+            if(res.status!==200){
+                throw res.statusText
+            }
+            setIsLoggedIn(false)
+            localStorage.removeItem('auth-token');
+            navigate('/');
+        } catch (error) {
+            console.error(error);
+        }
+    };
     return (
         <>
             <div className="navbar bg-base-100">
@@ -32,7 +58,7 @@ const Appbar = () => {
                             </div>
                         </button>
                         <ul tabIndex={0} className="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52">
-                            <div><Toast /></div>
+                            <div><Notifications /></div>
 
                         </ul>
                     </div>
@@ -52,7 +78,7 @@ const Appbar = () => {
                             <li><Link to={'/profile'}>Profile</Link></li>
                             <li><Link to={'/login'}>Login</Link></li>
                             <li><Link to={'/signup'}>Sign Up</Link></li>
-                            <li><Link to={'/logout'}>Logout</Link></li>
+                            <li><Link onClick={()=>handleLogout}>Logout</Link></li>
                         </ul>
                     </div>
                 </div>

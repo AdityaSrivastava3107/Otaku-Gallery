@@ -1,27 +1,48 @@
-import React from 'react'
-import { useNavigate } from 'react-router-dom'
+import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+//import axios from 'axios';
 import Carousel from './Carousel';
 import OtherUsers from './OtherUsers';
 const Profile = () => {
+  // const [displayName, setDisplayName] = useState('');
+  // const [bio, setBio] = useState('');
+
+  // const handleUpdate = async (e) => {
+  //   e.preventDefault();
+  //   try {
+  //     const res = await axios.put('http://localhost:5000/api/displayprofile/profile', { displayName, bio });
+  //     console.log(res.data);
+  //   } catch (error) {
+  //     console.error(error);
+  //   }
+  // };
+
+  // const onChangeName=(e)=>{
+  //   setDisplayName(e.target.value)
+  // }
+
+  // const onChangeBio=(e)=>{
+  //   setBio(e.target.value)
+  // }
 
   const navigate = useNavigate();
 
-  const navigateToUploadForm=()=>{
+  const navigateToUploadForm = () => {
     navigate('/uploadform')
   }
 
-  const navigateToEditProfile=()=>{
+  const navigateToEditProfile = () => {
     navigate('/createprofile')
   }
 
   return (
     <>
-      <div className="container prose" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: '7vh', margin:'0 auto' }}>
+      <div className="container prose" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: '7vh', margin: '0 auto' }}>
         <h1>Your Profile</h1>
       </div>
       <div className='grid-cols-4 grid'>
-        <div >
-          <div className="card w-96 bg-base-200 shadow-xl" style={{ height: '30rem', borderRadius: '12px', marginLeft:'10px' }}>
+        <div className='mt-7' >
+          <div className="card w-96 bg-base-200 shadow-xl" style={{ height: '30rem', borderRadius: '12px', marginLeft: '10px' }}>
             <div className="avatar online" style={{ margin: '0 auto', marginTop: '15px' }}>
               <div className="w-24 mask mask-squircle">
                 <img src="https://i.pinimg.com/originals/bf/b4/b6/bfb4b6bf038b30c42116828d2f539b30.jpg" alt='' />
@@ -40,13 +61,13 @@ const Profile = () => {
             </div>
           </div>
         </div>
-        <div className='col-span-2'>
+        <div className='col-span-2 h-1'>
           <div style={{ marginTop: '25px' }}>
-         <Carousel/>
-         </div>
+            <Carousel />
+          </div>
         </div>
-        <div className='' >
-          <OtherUsers/>
+        <div className='mt-7' >
+           <OtherUsers />
         </div>
       </div>
     </>

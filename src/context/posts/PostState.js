@@ -6,7 +6,7 @@ const PostState = (props) => {
     const postInitial = []
     const [post, setPost] = useState(postInitial)
     const token = localStorage.getItem('auth-token');
-
+    
     // Get all user's Posts
     const fetchPosts = async () => {
 

@@ -5,6 +5,8 @@ const { body, validationResult } = require('express-validator');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const fetchuser = require('../middleware/fetchuser');
+//const auth = require('../middleware/auth');
+
 
 const JWT_SECRET = "ThisisArt";
 // user creation route
@@ -100,14 +102,6 @@ router.post('/getuser', fetchuser, async (req, res) => {
 //user logout route
 router.post('/logout', fetchuser, async (req, res) => {
   try {
-    // remove the token from the user's list of tokens
-    console.log(req.user.token)
-    req.user.tokens = req.user.tokens.filter((token) => {
-      return token.token !== req.token;
-    });
-
-    // save the updated user
-    await req.user.save();
     res.status(200).send(null);
   }  catch (error) {
     console.error(error);

@@ -15,8 +15,11 @@ import Alert from './components/Alert';
 import { useState } from 'react';
 import Logout from './components/Logout';
 //import Footer from './components/Footer';
+import AuthContext from './context/authContext';
+import DisplayPictureUpload from './components/DisplayPictureUpload';
 
 function App() {
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [alert, setAlert] = useState(null)
   const showAlert=(message)=>{
     setAlert({
@@ -25,6 +28,7 @@ function App() {
   }
   return (
     <>
+     <AuthContext.Provider value={{isLoggedIn, setIsLoggedIn}}>
       <Appbar />
       <Alert alert={alert}/>   
       <Routes>
@@ -40,7 +44,9 @@ function App() {
         <Route exact path='/profile' element={<Profile />} />
         <Route exact path='/createprofile' element={<CreateProfile/>} />
         <Route exact path='/logout' element={<Logout/>} />
+        <Route exact path='/displaypicture' element={<DisplayPictureUpload/>} />
       </Routes>
+      </AuthContext.Provider>
     </>
   );
 }

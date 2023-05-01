@@ -2,10 +2,12 @@ import React from 'react'
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
+import AuthContext from '../context/authContext';
+import { useContext } from 'react';
 const LoginPage = () => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
-
+    const { setIsLoggedIn} = useContext(AuthContext);
     const navigate = useNavigate() 
 
     const userLogin = (event, props) => {
@@ -15,7 +17,8 @@ const LoginPage = () => {
             .then((response) => {
                 // Handle the response from the backend API
                 localStorage.setItem('auth-token', response.data.authtoken);
-                navigate('/');
+                setIsLoggedIn(true)
+                navigate('/home');
                 props.showAlert('Logged in Successfully!')
             })
             .catch((error) => {
@@ -36,7 +39,7 @@ const LoginPage = () => {
         <div className="container" style={{display: 'flex',alignItems: 'center',justifyContent: 'center',height: '50vh', margin:'0 auto'}}>
             <div className="form-control w-full max-w-xs">
                 <label className="label">
-                    <span className="label-text">Username or Email</span>
+                    <span className="label-text">Username</span>
                 </label>
                 <input type="text" value={username} onChange={(e) => setUsername(e.target.value)} placeholder="Type here" className="input input-bordered input-primary w-full max-w-xs" />
                 <label className="label">
