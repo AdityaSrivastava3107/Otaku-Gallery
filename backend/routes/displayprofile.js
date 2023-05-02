@@ -47,8 +47,9 @@ router.get('/profile', fetchuser, async (req, res) => {
       if (!user) {
         return res.status(404).json({ message: 'User not found.' });
       }
-  
+      console.log(req.body)
       user.displayPicture = req.body.displayPicture;
+      console.log(user.displayPicture)
       await user.save();
   
       res.status(200).json({ message: 'User display picture updated successfully.' });
@@ -59,11 +60,13 @@ router.get('/profile', fetchuser, async (req, res) => {
   });
 
   router.get('/fetchdisplaypicture', fetchuser, async (req, res) => {
+    console.log('a')
     try {
       const user = await User.findById(req.user.id).select('displayPicture');
       if (!user) {
         return res.status(404).json({ message: 'User not found.' });
       }
+
       res.status(200).json({ message: 'User DisplayPicture fetched successfully.', data: user.displayPicture });
     } catch (error) {
       console.error(error);

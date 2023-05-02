@@ -13,11 +13,12 @@ const Appbar = () => {
     const handleLogout = async () => {
         console.log('a')
         try {
-            const res = await axios.post('http://localhost:5000/api/authorize/logout', {
+            const res = await axios.post('http://localhost:5000/api/authorize/logout',{} ,{
                 headers: {
                     'auth-token': `${localStorage.getItem('auth-token')}`
                 }
             });
+            console.log(res)
             if(res.status!==200){
                 throw res.statusText
             }
@@ -78,7 +79,7 @@ const Appbar = () => {
                             <li><Link to={'/profile'}>Profile</Link></li>
                             <li><Link to={'/login'}>Login</Link></li>
                             <li><Link to={'/signup'}>Sign Up</Link></li>
-                            <li><Link onClick={()=>handleLogout}>Logout</Link></li>
+                            <li><Link onClick={handleLogout}>Logout</Link></li>
                         </ul>
                     </div>
                 </div>

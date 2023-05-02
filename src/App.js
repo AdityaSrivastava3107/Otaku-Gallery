@@ -13,7 +13,6 @@ import PrivateRoute from './components/PrivateRoute';
 import UploadForm from './components/UploadForm';
 import Alert from './components/Alert';
 import { useState } from 'react';
-import Logout from './components/Logout';
 //import Footer from './components/Footer';
 import AuthContext from './context/authContext';
 import DisplayPictureUpload from './components/DisplayPictureUpload';
@@ -43,8 +42,7 @@ function App() {
         <Route exact path='/signup' element={<SignUp showAlert={showAlert}/>} />
         <Route exact path='/profile' element={<Profile />} />
         <Route exact path='/createprofile' element={<CreateProfile/>} />
-        <Route exact path='/logout' element={<Logout/>} />
-        <Route exact path='/displaypicture' element={<DisplayPictureUpload/>} />
+        <Route exact path='/displaypicture' element={<DisplayPictureUpload/>}/>
       </Routes>
       </AuthContext.Provider>
     </>

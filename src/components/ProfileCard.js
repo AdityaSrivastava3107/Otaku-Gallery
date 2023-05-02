@@ -7,8 +7,8 @@ const ProfileCard = ({ name, bio }) => {
     useEffect(() => {
         const fetchDisplayPicture = async () => {
             try {
-                const res = await axios.get('http://localhost:5000/api/displayprofile/fetchdisplaypicture', { headers: { 'auth-token': localStorage.getItem('auth-token') } });
-                setDisplayPicture(res.data.data.displayPicture);
+                const res = await axios.get('http://localhost:5000/api/displayprofile/fetchdisplaypicture',{} ,{ headers: { 'auth-token': localStorage.getItem('auth-token') } });
+                setDisplayPicture(res.data.data);
             } catch (error) {
                 console.error(error);
             }

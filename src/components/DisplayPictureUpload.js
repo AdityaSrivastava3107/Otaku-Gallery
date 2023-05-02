@@ -15,7 +15,7 @@ const DisplayPictureUpload = () => {
     event.preventDefault();
 
     try {
-      const response = await axios.put('http://localhost:5000/api/displayprofile/displaypicture',{ headers: { 'auth-token': localStorage.getItem('auth-token') } } ,{ displayPicture });
+      const response = await axios.put('http://localhost:5000/api/displayprofile/displaypicture' ,{ displayPicture }, { headers: { 'auth-token': localStorage.getItem('auth-token') } });
       console.log(response.data.message);
     } catch (error) {
       console.error(error.response.data.message);
