@@ -15,7 +15,7 @@ const CreateProfile = () => {
       };
   
       try {
-        const response = await axios.put('http://localhost:5000/api/displayprofile/updateprofile', { name, bio }, config);
+        const response = await axios.put('http://localhost:5000/api/displayprofile/updateprofile',{ headers: { 'auth-token': localStorage.getItem('auth-token') } } ,{ name, bio }, config);
         console.log(response.data);
       } catch (error) {
         console.error(error);
@@ -24,6 +24,9 @@ const CreateProfile = () => {
     const navToDisplayPicture=()=>{
         navigate('/displaypicture')
     }
+    const navToHome=()=>{
+      navigate('/profile')
+  }
   
     return (
         <>
@@ -46,7 +49,7 @@ const CreateProfile = () => {
             <div className="container" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: '15vh', margin: '0 auto' }}>
                 <textarea className="textarea textarea-primary w-80" placeholder="Bio"  value={bio} onChange={(e) => setBio(e.target.value)}></textarea>
             </div>
-            <button className="btn btn-outline btn-primary" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center',  margin: '0 auto' }}>Button</button>
+            <button className="btn btn-outline btn-primary" onClick={navToHome} style={{ display: 'flex', alignItems: 'center', justifyContent: 'center',  margin: '0 auto' }}>Submit</button>
             </form>
         </>
     )

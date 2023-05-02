@@ -1,7 +1,10 @@
 import React, { useState } from 'react'
 import axios from 'axios';
-
+import { useNavigate } from 'react-router-dom';
 const DisplayPictureUpload = () => {
+
+  const navigate = useNavigate();
+
     const [displayPicture, setDisplayPicture] = useState('');
 
   const handleChange = (event) => {
@@ -12,11 +15,12 @@ const DisplayPictureUpload = () => {
     event.preventDefault();
 
     try {
-      const response = await axios.put('http://localhost:5000/displayprofile/displaypicture', { displayPicture });
+      const response = await axios.put('http://localhost:5000/api/displayprofile/displaypicture',{ headers: { 'auth-token': localStorage.getItem('auth-token') } } ,{ displayPicture });
       console.log(response.data.message);
     } catch (error) {
       console.error(error.response.data.message);
     }
+    navigate('/profile')
   };
   return (
     <>

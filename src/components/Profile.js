@@ -1,66 +1,34 @@
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-//import axios from 'axios';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import Carousel from './Carousel';
 import OtherUsers from './OtherUsers';
+import ProfileCard from './ProfileCard';
 const Profile = () => {
-  // const [displayName, setDisplayName] = useState('');
-  // const [bio, setBio] = useState('');
+  const [name, setName] = useState('');
+  const [bio, setBio] = useState('');
 
-  // const handleUpdate = async (e) => {
-  //   e.preventDefault();
-  //   try {
-  //     const res = await axios.put('http://localhost:5000/api/displayprofile/profile', { displayName, bio });
-  //     console.log(res.data);
-  //   } catch (error) {
-  //     console.error(error);
-  //   }
-  // };
-
-  // const onChangeName=(e)=>{
-  //   setDisplayName(e.target.value)
-  // }
-
-  // const onChangeBio=(e)=>{
-  //   setBio(e.target.value)
-  // }
-
-  const navigate = useNavigate();
-
-  const navigateToUploadForm = () => {
-    navigate('/uploadform')
-  }
-
-  const navigateToEditProfile = () => {
-    navigate('/createprofile')
-  }
-
+  useEffect(() => {
+    const fetchProfile = async () => {
+      try {
+        const res = await axios.get('http://localhost:5000/api/displayprofile/profile', { headers: { 'auth-token': localStorage.getItem('auth-token') } });
+        const { displayName, displayBio } = res.data.data;
+        setName(displayName);
+        setBio(displayBio);
+      } catch (error) {
+        console.error(error);
+      }
+    }
+    
+    fetchProfile();
+  }, []);
+  
   return (
     <>
       <div className="container prose" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: '7vh', margin: '0 auto' }}>
         <h1>Your Profile</h1>
       </div>
       <div className='grid-cols-4 grid'>
-        <div className='mt-7' >
-          <div className="card w-96 bg-base-200 shadow-xl" style={{ height: '30rem', borderRadius: '12px', marginLeft: '10px' }}>
-            <div className="avatar online" style={{ margin: '0 auto', marginTop: '15px' }}>
-              <div className="w-24 mask mask-squircle">
-                <img src="https://i.pinimg.com/originals/bf/b4/b6/bfb4b6bf038b30c42116828d2f539b30.jpg" alt='' />
-              </div>
-            </div>
-            <div className="card-body items-center text-center">
-              <h2 className="card-title font-bold">Aditya Srivastava</h2>
-              <p style={{ marginTop: '20px' }}>My name is Aditya, I am an artist and this is my Otaku Gallery Bio!</p>
-              <div className="container" style={{ marginBottom: '60px' }}>
-                <div className="badge badge-primary" style={{ marginRight: '10px' }}>Fine Art</div>
-                <div className="badge badge-primary">Illustrations</div>
-                <div className="badge badge-primary" style={{ marginLeft: '10px' }}>Sketching</div>
-              </div>
-              <button className="btn btn-outline btn-primary" style={{ marginBottom: '10px' }} onClick={navigateToUploadForm}>Add Art</button>
-              <button className="btn btn-sm btn-outline btn-primary" onClick={navigateToEditProfile}>Edit Profile</button>
-            </div>
-          </div>
-        </div>
+        <ProfileCard name={name} bio={bio}/>
         <div className='col-span-2 h-1'>
           <div style={{ marginTop: '25px' }}>
             <Carousel />

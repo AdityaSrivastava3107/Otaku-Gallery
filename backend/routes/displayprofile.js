@@ -32,8 +32,8 @@ router.get('/profile', fetchuser, async (req, res) => {
       const user = await User.findById(req.user.id);
   
       res.status(200).json({ message: 'Profile fetched successfully.',  data: {
-        displayName: user.displayName,
-        displayBio : user.displayBio ,
+        displayName: user.name,
+        displayBio : user.bio ,
       },});
     } catch (error) {
       console.error(error);
@@ -52,6 +52,19 @@ router.get('/profile', fetchuser, async (req, res) => {
       await user.save();
   
       res.status(200).json({ message: 'User display picture updated successfully.' });
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ message: 'Server error.' });
+    }
+  });
+
+  router.get('/fetchdisplaypicture', fetchuser, async (req, res) => {
+    try {
+      const user = await User.findById(req.user.id).select('displayPicture');
+      if (!user) {
+        return res.status(404).json({ message: 'User not found.' });
+      }
+      res.status(200).json({ message: 'User DisplayPicture fetched successfully.', data: user.displayPicture });
     } catch (error) {
       console.error(error);
       res.status(500).json({ message: 'Server error.' });

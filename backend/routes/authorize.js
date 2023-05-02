@@ -102,7 +102,8 @@ router.post('/getuser', fetchuser, async (req, res) => {
 //user logout route
 router.post('/logout', fetchuser, async (req, res) => {
   try {
-    res.status(200).send(null);
+    
+    res.status(200).json({ message: 'Logged Out Succesfully'})
   }  catch (error) {
     console.error(error);
     res.status(500).json({ message: 'Server error.' });
