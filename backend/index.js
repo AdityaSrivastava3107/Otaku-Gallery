@@ -10,6 +10,7 @@ app.use('/api', require('./routes/upload'))
 app.use('/api/displayposts', require('./routes/displayposts'))
 app.use('/api/authorize', require('./routes/authorize'))
 app.use('/api/displayprofile', require('./routes/displayprofile'))
+app.use('/api/dp', require('./routes/dp'))
 
 app.listen(port, () => {
   console.log(`OtakuGallery listening at http://localhost:${port}`)

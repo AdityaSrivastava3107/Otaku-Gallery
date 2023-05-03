@@ -19,8 +19,7 @@ const UserSchema = new Schema({
         default: Date.now
     },
     displayPicture: {
-        type: String,
-        default: '/default-avatar.png'
+        type: Buffer
     },
     bio: {
         type: String

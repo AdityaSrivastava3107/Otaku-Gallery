@@ -6,14 +6,15 @@ import ProfileCard from './ProfileCard';
 const Profile = () => {
   const [name, setName] = useState('');
   const [bio, setBio] = useState('');
-
+  const [displayPicture, setDisplayPicture] = useState('');
   useEffect(() => {
     const fetchProfile = async () => {
       try {
-        const res = await axios.get('http://localhost:5000/api/displayprofile/profile', { headers: { 'auth-token': localStorage.getItem('auth-token') } });
-        const { displayName, displayBio } = res.data.data;
+        const res = await axios.get('http://localhost:5000/api/displayprofile/profile', { headers: { 'Authorization': `Bearer ${localStorage.getItem('auth-token')}` } });
+        const { displayName, displayBio, displayPicture } = res.data.data;
         setName(displayName);
         setBio(displayBio);
+        setDisplayPicture(displayPicture);
       } catch (error) {
         console.error(error);
       }
@@ -28,7 +29,7 @@ const Profile = () => {
         <h1>Your Profile</h1>
       </div>
       <div className='grid-cols-4 grid'>
-        <ProfileCard name={name} bio={bio}/>
+        <ProfileCard name={name} bio={bio} displayPicture={displayPicture}/>
         <div className='col-span-2 h-1'>
           <div style={{ marginTop: '25px' }}>
             <Carousel />

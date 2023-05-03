@@ -15,7 +15,7 @@ const Appbar = () => {
         try {
             const res = await axios.post('http://localhost:5000/api/authorize/logout',{} ,{
                 headers: {
-                    'auth-token': `${localStorage.getItem('auth-token')}`
+                    'Authorization': `Bearer ${localStorage.getItem('auth-token')}`
                 }
             });
             console.log(res)

@@ -11,7 +11,7 @@ const CreateProfile = () => {
       const config = {
         headers: {
           'Content-Type': 'application/json',
-          'auth-token': localStorage.getItem('auth-token')
+          'Authorization': `Bearer ${localStorage.getItem('auth-token')}`
         }
       };
       navigate('/createprofile')

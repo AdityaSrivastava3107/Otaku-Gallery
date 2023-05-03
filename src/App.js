@@ -37,12 +37,13 @@ function App() {
         <Route exact path='/shop' element={<Shop />} />
         <Route exact path='/blog' element={<Blog />} />
         <Route exact path='/uploadform' element={<UploadForm/>} />
+        <Route exact path='/profile' element={<Profile />} />
         </Route>
         <Route exact path='/login' element={<LoginPage showAlert={showAlert}/>} />
         <Route exact path='/signup' element={<SignUp showAlert={showAlert}/>} />
-        <Route exact path='/profile' element={<Profile />} />
         <Route exact path='/createprofile' element={<CreateProfile/>} />
         <Route exact path='/displaypicture' element={<DisplayPictureUpload/>}/>
+        
       </Routes>
       </AuthContext.Provider>
     </>

@@ -1,23 +1,8 @@
-import React, { useState, useEffect  } from 'react'
+import React from 'react'
 import { useNavigate} from 'react-router-dom';
-import axios from 'axios';
-const ProfileCard = ({ name, bio }) => {
-    const [displayPicture, setDisplayPicture] = useState('');
+const ProfileCard = ({ name, bio, displayPicture }) => {
 
-    useEffect(() => {
-        const fetchDisplayPicture = async () => {
-            try {
-                const res = await axios.get('http://localhost:5000/api/displayprofile/fetchdisplaypicture',{} ,{ headers: { 'auth-token': localStorage.getItem('auth-token') } });
-                setDisplayPicture(res.data.data);
-            } catch (error) {
-                console.error(error);
-            }
-        };
-
-        fetchDisplayPicture();
-    }, []);
-
-
+    
     const navigate = useNavigate();
 
     const navigateToUploadForm = () => {
@@ -34,7 +19,7 @@ const ProfileCard = ({ name, bio }) => {
                 <div className="card w-96 bg-base-200 shadow-xl" style={{ height: '30rem', borderRadius: '12px', marginLeft: '10px' }}>
                     <div className="avatar online" style={{ margin: '0 auto', marginTop: '15px' }}>
                         <div className="w-24 mask mask-squircle">
-                            <img src={displayPicture} alt="Display" />
+                        <img src={`data:image/jpeg;base64,${displayPicture}`} alt='' />
                         </div>
                     </div>
                     <div className="card-body items-center text-center">

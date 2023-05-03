@@ -5,22 +5,30 @@ const DisplayPictureUpload = () => {
 
   const navigate = useNavigate();
 
-    const [displayPicture, setDisplayPicture] = useState('');
+  const [displayPicture, setDisplayPicture] = useState(null);
 
-  const handleChange = (event) => {
-    setDisplayPicture(event.target.value);
+  const handleFileChange = (event) => {
+    setDisplayPicture(event.target.files[0]);
   };
 
-  const handleSubmit = async (event) => {
+  const handleSubmit = (event) => {
     event.preventDefault();
-
-    try {
-      const response = await axios.put('http://localhost:5000/api/displayprofile/displaypicture' ,{ displayPicture }, { headers: { 'auth-token': localStorage.getItem('auth-token') } });
-      console.log(response.data.message);
-    } catch (error) {
-      console.error(error.response.data.message);
-    }
-    navigate('/profile')
+    const formData = new FormData();
+    formData.append('displayPicture', displayPicture);
+    axios.post('http://localhost:5000/api/dp/uploadDisplayPicture', formData, {
+      headers: {
+        'Authorization': `Bearer ${localStorage.getItem('auth-token')}`,
+        'Content-Type': 'multipart/form-data'
+      },
+    })
+      .then((response) => {
+        console.log(response.data);
+        navigate('/createprofile')
+      })
+      .catch((error) => {
+        console.error(error);
+        // handle error
+      });
   };
   return (
     <>
@@ -28,7 +36,7 @@ const DisplayPictureUpload = () => {
       <h1>Upload Display Picture</h1>
       </div>
     <div className="container " style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto' }}>
-      <input type="file" className="file-input file-input-bordered file-input-info w-full max-w-xs mt-24" onChange={handleChange}/>
+      <input type="file" className="file-input file-input-bordered file-input-info w-full max-w-xs mt-24" onChange={handleFileChange}/>
       <button className="btn btn-outline btn-secondary mt-24 ml-2.5" type="submit" onClick={handleSubmit} >Upload</button>
     </div> 
     

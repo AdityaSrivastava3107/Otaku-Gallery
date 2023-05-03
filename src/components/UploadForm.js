@@ -11,11 +11,10 @@ function UploadForm(props) {
     formData.append('file', file);
 
     try {
-      const token = localStorage.getItem('auth-token');
       const response = await axios.post('http://localhost:5000/api/upload', formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
-          'auth-token': token
+          'Authorization': `Bearer ${localStorage.getItem('auth-token')}`
         }
       });
       setMessage(response.data);

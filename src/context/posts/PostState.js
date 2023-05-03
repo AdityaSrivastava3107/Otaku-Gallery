@@ -11,7 +11,7 @@ const PostState = (props) => {
     const fetchPosts = async () => {
 
         const headers = {
-            'auth-token': token
+            'Authorization': `Bearer ${localStorage.getItem('auth-token')}`
         };
 
         try {
