@@ -3,55 +3,51 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
 function UploadForm(props) {
-  const [selectedFile, setSelectedFile] = useState(null);
-  const [message, setMessage] = useState('');
+  const [post, setPost] = useState(null);
+  const [description, setDescription] = useState('');
   const navigate = useNavigate()
-  async function uploadFile(file) {
+  const handleFileChange = (event) => {
+    setPost(event.target.files[0]);
+  };
+  const handleSubmit = async (e) => {
+    e.preventDefault();
     const formData = new FormData();
-    formData.append('file', file);
+    formData.append('post', post);
+    formData.append('description', description);
+    const config = {
+      headers: {
+        'Authorization': `Bearer ${localStorage.getItem('auth-token')}`,
+        'Content-Type': 'multipart/form-data'
+      }
+    };
 
     try {
-      const response = await axios.post('http://localhost:5000/api/upload', formData, {
-        headers: {
-          'Content-Type': 'multipart/form-data',
-          'Authorization': `Bearer ${localStorage.getItem('auth-token')}`
-        }
-      });
-      setMessage(response.data);
+      const response = await axios.post('http://localhost:5000/api/upload/uploadPost',formData, config);
+      console.log(response.data);
+      navigate('/profile')
     } catch (error) {
-      console.log(error);
+      console.error(error);
     }
   }
-  const [file, setFile] = useState();
-  function handleFileInput(event) {
-    setSelectedFile(event.target.files[0]);
-    console.log(event.target.files);
-    setFile(URL.createObjectURL(event.target.files[0]));
-  }
 
-  async function handleSubmit(event) {
-    event.preventDefault();
-    await uploadFile(selectedFile);
-    navigate('/profile')
-  }
 
 
 
 
   return (
     <>
-    <div className='container prose' style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto' }} >
-      <h1>Upload your Art</h1>
+      <div className='container prose' style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto' }} >
+        <h1>Upload your Art</h1>
       </div>
-    <div className="container " style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto' }}>
-      <input type="file" className="file-input file-input-bordered file-input-info w-full max-w-xs mt-24" onChange={handleFileInput}/>
-      <button className="btn btn-outline btn-secondary mt-24 ml-2.5" type="submit" onClick={handleSubmit} >Upload</button>
-    </div> 
-    
-      <img src={file} alt="" />
-      <p>{message}</p>
+      <div className="container" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: '15vh', margin: '0 auto' }}>
+        <textarea className="textarea textarea-primary w-80" placeholder="Description" onChange={(e) => setDescription(e.target.value)} ></textarea>
+      </div>
+      <div className="container " style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto' }}>
+        <input type="file" className="file-input file-input-bordered file-input-info w-full max-w-xs mt-8" onChange={handleFileChange} />
+        <button className="btn btn-outline btn-secondary mt-8 ml-2.5"  onClick={handleSubmit} type="submit"  >Upload</button>
+      </div>
     </>
-    
+
   );
 }
 

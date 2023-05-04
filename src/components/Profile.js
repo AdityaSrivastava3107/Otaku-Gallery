@@ -32,7 +32,7 @@ const Profile = () => {
         <ProfileCard name={name} bio={bio} displayPicture={displayPicture}/>
         <div className='col-span-2 h-1'>
           <div style={{ marginTop: '25px' }}>
-            <Carousel />
+            <Carousel displayPicture={displayPicture}/>
           </div>
         </div>
         <div className='mt-7' >

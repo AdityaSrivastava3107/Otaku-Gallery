@@ -14,11 +14,11 @@ const CreateProfile = () => {
           'Authorization': `Bearer ${localStorage.getItem('auth-token')}`
         }
       };
-      navigate('/createprofile')
   
       try {
         const response = await axios.put('http://localhost:5000/api/displayprofile/updateprofile',{ name, bio }, config);
         console.log(response.data);
+        navigate('/createprofile')
       } catch (error) {
         console.error(error);
       }

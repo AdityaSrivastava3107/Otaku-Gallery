@@ -23,6 +23,12 @@ const UserSchema = new Schema({
     },
     bio: {
         type: String
+    },
+    post: {
+        type: Buffer
+    },
+    description: {
+        type: String
     }
 }, {
     timestamps: true

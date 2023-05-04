@@ -6,7 +6,7 @@ const port = 5000
 const cors = require("cors");
 app.use(cors());
 app.use(express.json())
-app.use('/api', require('./routes/upload'))
+app.use('/api/upload', require('./routes/upload'))
 app.use('/api/displayposts', require('./routes/displayposts'))
 app.use('/api/authorize', require('./routes/authorize'))
 app.use('/api/displayprofile', require('./routes/displayprofile'))

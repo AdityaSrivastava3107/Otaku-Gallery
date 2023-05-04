@@ -1,8 +1,6 @@
 const express = require('express');
 const multer = require('multer');
-const fs = require('fs').promises;
 const router = express.Router();
-const mongoose = require('mongoose');
 const User = require('../models/Users');
 // const upload = multer({ dest: 'uploads' });
 const upload = multer({
