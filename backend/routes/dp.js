@@ -45,7 +45,6 @@ router.get('/fetchDisplayPicture', fetchuser, async (req, res) => {
             return res.status(404).json({ message: 'Display picture not found for the user' });
         }
         const bufferToBase64 = Buffer.from(user.displayPicture).toString('base64')
-        console.log(bufferToBase64)
         //res.set('Content-Type', 'image/png');
         res.send(bufferToBase64);
     } catch (error) {

@@ -5,30 +5,38 @@ import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import AuthContext from '../context/authContext';
 import { useContext } from 'react';
-
+import { useState, useEffect } from 'react';
 const Appbar = () => {
-    const { setIsLoggedIn } = useContext(AuthContext);
     const navigate = useNavigate();
+    const { isLoggedIn, setIsLoggedIn } = useContext(AuthContext);
+const [removeToken, setRemoveToken] = useState(false);
 
-    const handleLogout = async () => {
-        console.log('a')
-        try {
-            const res = await axios.post('http://localhost:5000/api/authorize/logout',{} ,{
-                headers: {
-                    'Authorization': `Bearer ${localStorage.getItem('auth-token')}`
-                }
-            });
-            console.log(res)
-            if(res.status!==200){
-                throw res.statusText
-            }
-            setIsLoggedIn(false)
-            localStorage.removeItem('auth-token');
-            navigate('/');
-        } catch (error) {
-            console.error(error);
-        }
-    };
+const handleLogout = async () => {
+  try {
+    const res = await axios.post('http://localhost:5000/api/authorize/logout', {}, {
+      headers: {
+        'Authorization': `Bearer ${localStorage.getItem('auth-token')}`
+      }
+    });
+    if (res.status !== 200) {
+      throw res.statusText;
+    }
+    setIsLoggedIn(false);
+    if (removeToken) {
+      localStorage.removeItem('auth-token');
+    }
+    navigate('/');
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+useEffect(() => {
+  if (isLoggedIn && removeToken) {
+    localStorage.removeItem('auth-token');
+    setRemoveToken(false);
+  }
+}, [isLoggedIn, removeToken]);
     return (
         <>
             <div className="navbar bg-base-100">

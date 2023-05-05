@@ -16,36 +16,38 @@ import { useState } from 'react';
 //import Footer from './components/Footer';
 import AuthContext from './context/authContext';
 import DisplayPictureUpload from './components/DisplayPictureUpload';
+import PostState from './context/posts/PostState';
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [alert, setAlert] = useState(null)
-  const showAlert=(message)=>{
+  const showAlert = (message) => {
     setAlert({
-      message : message
+      message: message
     })
   }
   return (
     <>
-     <AuthContext.Provider value={{isLoggedIn, setIsLoggedIn}}>
-      <Appbar />
-      <Alert alert={alert}/>   
-      <Routes>
-        <Route exact path='/' element={<TopPosts/>}></Route>
-        <Route element={<PrivateRoute/>}>
-        <Route exact path='/home' element={<Home />} />
-        <Route exact path='/shop' element={<Shop />} />
-        <Route exact path='/blog' element={<Blog />} />
-        <Route exact path='/uploadform' element={<UploadForm/>} />
-        <Route exact path='/profile' element={<Profile />} />
-        </Route>
-        <Route exact path='/login' element={<LoginPage showAlert={showAlert}/>} />
-        <Route exact path='/signup' element={<SignUp showAlert={showAlert}/>} />
-        <Route exact path='/createprofile' element={<CreateProfile/>} />
-        <Route exact path='/displaypicture' element={<DisplayPictureUpload/>}/>
-        
-      </Routes>
-      </AuthContext.Provider>
+      <PostState>
+        <AuthContext.Provider value={{ isLoggedIn, setIsLoggedIn }}>
+          <Appbar />
+          <Alert alert={alert} />
+          <Routes>
+            <Route exact path='/' element={<TopPosts />}></Route>
+            <Route element={<PrivateRoute />}>
+              <Route exact path='/home' element={<Home />} />
+              <Route exact path='/shop' element={<Shop />} />
+              <Route exact path='/blog' element={<Blog />} />
+              <Route exact path='/uploadform' element={<UploadForm />} />
+              <Route exact path='/profile' element={<Profile />} />
+            </Route>
+            <Route exact path='/login' element={<LoginPage showAlert={showAlert} />} />
+            <Route exact path='/signup' element={<SignUp showAlert={showAlert} />} />
+            <Route exact path='/createprofile' element={<CreateProfile />} />
+            <Route exact path='/displaypicture' element={<DisplayPictureUpload />} />
+          </Routes>
+        </AuthContext.Provider>
+      </PostState>
     </>
   );
 }
