@@ -4,7 +4,9 @@ import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import AuthContext from '../context/authContext';
 import { useContext } from 'react';
+import { userContext } from '../App';
 const LoginPage = () => {
+    const {dispatch}  = useContext(userContext)
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const { setIsLoggedIn} = useContext(AuthContext);
@@ -17,6 +19,7 @@ const LoginPage = () => {
             .then((response) => {
                 // Handle the response from the backend API
                 localStorage.setItem('auth-token', response.data.authtoken);
+                dispatch({type : "USER", payload : true})
                 setIsLoggedIn(true)
                 navigate('/home');
                 props.showAlert('Logged in Successfully!')

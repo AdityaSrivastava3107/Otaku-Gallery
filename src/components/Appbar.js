@@ -6,37 +6,59 @@ import axios from 'axios';
 import AuthContext from '../context/authContext';
 import { useContext } from 'react';
 import { useState, useEffect } from 'react';
+import { userContext } from '../App';
 const Appbar = () => {
+    const { state, dispatch } = useContext(userContext)
     const navigate = useNavigate();
     const { isLoggedIn, setIsLoggedIn } = useContext(AuthContext);
-const [removeToken, setRemoveToken] = useState(false);
+    const [removeToken, setRemoveToken] = useState(false);
 
-const handleLogout = async () => {
-  try {
-    const res = await axios.post('http://localhost:5000/api/authorize/logout', {}, {
-      headers: {
-        'Authorization': `Bearer ${localStorage.getItem('auth-token')}`
-      }
-    });
-    if (res.status !== 200) {
-      throw res.statusText;
-    }
-    setIsLoggedIn(false);
-    if (removeToken) {
-      localStorage.removeItem('auth-token');
-    }
-    navigate('/');
-  } catch (error) {
-    console.error(error);
-  }
-};
+    const handleLogout = async () => {
+        try {
+            const res = await axios.post('http://localhost:5000/api/authorize/logout', {}, {
+                headers: {
+                    'Authorization': `Bearer ${localStorage.getItem('auth-token')}`
+                }
+            });
+            if (res.status !== 200) {
+                throw res.statusText;
+            }
+            setIsLoggedIn(false);
+            if (removeToken) {
+                localStorage.removeItem('auth-token');
+            }
+            dispatch({ type: "USER", payload: false })
+            navigate('/');
+        } catch (error) {
+            console.error(error);
+        }
+    };
 
-useEffect(() => {
-  if (isLoggedIn && removeToken) {
-    localStorage.removeItem('auth-token');
-    setRemoveToken(false);
-  }
-}, [isLoggedIn, removeToken]);
+    const RenderMenu = () => {
+        if (state) {
+            return (
+                <>
+                    <li><Link to={'/profile'}>Profile</Link></li>
+                    <li><Link onClick={handleLogout}>Logout</Link></li>
+                </>
+            )
+        }
+        else {
+            return (
+                <>
+                    <li><Link to={'/login'}>Login</Link></li>
+                    <li><Link to={'/signup'}>Sign Up</Link></li>
+                </>
+            )
+        }
+    }
+
+    useEffect(() => {
+        if (isLoggedIn && removeToken) {
+            localStorage.removeItem('auth-token');
+            setRemoveToken(false);
+        }
+    }, [isLoggedIn, removeToken]);
     return (
         <>
             <div className="navbar bg-base-100">
@@ -84,10 +106,7 @@ useEffect(() => {
                             </div>
                         </label>
                         <ul tabIndex={0} className="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52">
-                            <li><Link to={'/profile'}>Profile</Link></li>
-                            <li><Link to={'/login'}>Login</Link></li>
-                            <li><Link to={'/signup'}>Sign Up</Link></li>
-                            <li><Link onClick={handleLogout}>Logout</Link></li>
+                            <RenderMenu />
                         </ul>
                     </div>
                 </div>

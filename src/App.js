@@ -1,4 +1,5 @@
 import { Route, Routes } from 'react-router-dom';
+import { createContext } from 'react';
 import './App.css';
 import Home from './components/Home';
 import Shop from './components/Shop';
@@ -12,11 +13,14 @@ import TopPosts from './components/TopPosts';
 import PrivateRoute from './components/PrivateRoute';
 import UploadForm from './components/UploadForm';
 import Alert from './components/Alert';
-import { useState } from 'react';
+import { useReducer, useState } from 'react';
 //import Footer from './components/Footer';
 import AuthContext from './context/authContext';
 import DisplayPictureUpload from './components/DisplayPictureUpload';
 import PostState from './context/posts/PostState';
+import{initialState, reducer} from '../src/reducer/UseReducer'
+
+export const userContext = createContext()
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -26,8 +30,12 @@ function App() {
       message: message
     })
   }
+  
+  const [state, dispatch] = useReducer(reducer, initialState)
+
   return (
     <>
+    <userContext.Provider value = {{state, dispatch}}>
       <PostState>
         <AuthContext.Provider value={{ isLoggedIn, setIsLoggedIn }}>
           <Appbar />
@@ -48,6 +56,7 @@ function App() {
           </Routes>
         </AuthContext.Provider>
       </PostState>
+      </userContext.Provider>
     </>
   );
 }
