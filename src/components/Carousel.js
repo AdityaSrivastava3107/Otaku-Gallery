@@ -30,7 +30,7 @@ const Carousel = ({ displayPicture }) => {
             <div className="card-body">
               <div className="avatar">
                 <div className="w-8 rounded-full">
-                  <img src={`data:image/jpeg;base64,${displayPicture}`} alt='' />
+                  <img src={`data:image/jpeg;base64,${displayPicture}`} alt="https://i.pinimg.com/originals/bf/b4/b6/bfb4b6bf038b30c42116828d2f539b30.jpg" />
                 </div>
               </div>
               <h2 className="card-title" style={{ marginLeft: '45px', marginTop: '-39px' }}>Username</h2>

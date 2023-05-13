@@ -18,7 +18,7 @@ const CreateProfile = () => {
       try {
         const response = await axios.put('http://localhost:5000/api/displayprofile/updateprofile',{ name, bio }, config);
         console.log(response.data);
-        navigate('/createprofile')
+        navigate('/profile')
       } catch (error) {
         console.error(error);
       }
